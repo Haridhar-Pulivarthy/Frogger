@@ -1,0 +1,9 @@
+//in between window.clear() and window.display()
+
+for (int x = lives; x > 0; x--)
+			{
+				sf::RectangleShape life(sf::Vector2f(30,30));
+				life.setPosition(x * 30, window.getSize().y - 40);
+				life.setTexture(&frogtr);
+				window.draw(life);
+			}
