@@ -1,0 +1,76 @@
+    //inside main
+    
+    int lives = 5;
+		std::string live = std::to_string(lives);
+
+		//loads font for lives counter
+		sf::Font font;
+		if (!font.loadFromFile("ariblk.ttf"))
+		{
+			return EXIT_FAILURE;
+		}
+		//sets up counter
+		sf::Text text;
+		text.setFont(font);
+		text.setString("Lives: ");
+		text.setCharacterSize(25);
+		text.setFillColor(sf::Color::Green);
+		text.setPosition(15, 1250);
+
+		sf::Text livesT;
+		livesT.setFont(font);
+		livesT.setString(live);
+		livesT.setCharacterSize(25);
+		livesT.setFillColor(sf::Color::Green);
+		livesT.setPosition(100, 1250);
+    
+    ///inside Event Loop
+    
+    //collison in 1st row
+			if (frog.getGlobalBounds().intersects(rc1.getGlobalBounds()) || frog.getGlobalBounds().intersects(rc2.getGlobalBounds())
+				|| frog.getGlobalBounds().intersects(rc3.getGlobalBounds()) || frog.getGlobalBounds().intersects(rc4.getGlobalBounds())
+				|| frog.getGlobalBounds().intersects(rc5.getGlobalBounds()) || frog.getGlobalBounds().intersects(rc6.getGlobalBounds()))
+			{
+				frog.setPosition(window.getSize().x / 2, window.getSize().y - 38.5);
+				lives = lives - 1;
+				live = std::to_string(lives);
+				livesT.setString(live);
+			}
+
+			//collison in 2nd row
+			if (frog.getGlobalBounds().intersects(gc1.getGlobalBounds()) || frog.getGlobalBounds().intersects(gc2.getGlobalBounds())
+				|| frog.getGlobalBounds().intersects(gc3.getGlobalBounds()) || frog.getGlobalBounds().intersects(gc4.getGlobalBounds())
+				|| frog.getGlobalBounds().intersects(gc5.getGlobalBounds()) || frog.getGlobalBounds().intersects(gc6.getGlobalBounds()))
+			{
+				frog.setPosition(window.getSize().x / 2, window.getSize().y - 38.5);
+				lives = lives - 1;
+				live = std::to_string(lives);
+				livesT.setString(live);
+				
+			}
+
+			//collison in 3rd row
+			if (frog.getGlobalBounds().intersects(bc1.getGlobalBounds()) || frog.getGlobalBounds().intersects(bc2.getGlobalBounds())
+				|| frog.getGlobalBounds().intersects(bc3.getGlobalBounds()) || frog.getGlobalBounds().intersects(bc4.getGlobalBounds())
+				|| frog.getGlobalBounds().intersects(bc5.getGlobalBounds()))
+			{
+				frog.setPosition(window.getSize().x / 2, window.getSize().y - 38.5);
+				lives = lives - 1;
+				live = std::to_string(lives);
+				livesT.setString(live);
+				
+			}
+
+			//collison in 4th row 
+			if (frog.getGlobalBounds().intersects(tc1.getGlobalBounds()) || frog.getGlobalBounds().intersects(tc2.getGlobalBounds())
+				|| frog.getGlobalBounds().intersects(tc3.getGlobalBounds()) || frog.getGlobalBounds().intersects(tc4.getGlobalBounds()))
+			{
+				frog.setPosition(window.getSize().x / 2, window.getSize().y - 38.5);
+				lives = lives - 1;
+				live = std::to_string(lives);
+				livesT.setString(live);
+			}
+      
+      
+      window.draw(text);
+			window.draw(livesT);
