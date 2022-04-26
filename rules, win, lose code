@@ -1,0 +1,106 @@
+//before event loop/////
+
+int lives = 5;
+	int win = 0;
+	int start = 0;
+
+	//loads font 
+	sf::Font font;
+	if (!font.loadFromFile("ariblk.ttf"))
+	{
+		return EXIT_FAILURE;
+	}
+
+	//sets up text and box for result
+	sf::Text text;
+	text.setFont(font);
+	text.setCharacterSize(50);
+	text.setFillColor(sf::Color::Red);
+
+	sf::RectangleShape result(sf::Vector2f(350, 80));
+	result.setPosition(window.getSize().x / 2 - 175, window.getSize().y / 2 - 40);
+	result.setFillColor(sf::Color::White);
+	result.setOutlineColor(sf::Color::Black);
+	result.setOutlineThickness(10);
+
+	//sets up text and box for rules
+	sf::Text rules;
+	rules.setFont(font);
+	rules.setCharacterSize(25);
+	rules.setFillColor(sf::Color::Black);
+	rules.setString("Use the W,A,S,D keys to move Frogger\nAvoid the cars, crocs, and snakes"
+		"\nRide the logs, turtles, and otters to\n get across the water\nGet Frogger to the purple frog to win\n               Press enter to start");
+	rules.setPosition(window.getSize().x / 2 - 260, window.getSize().y / 2 - 80);
+
+	sf::Text title;
+	title.setFont(font);
+	title.setCharacterSize(35);
+	title.setFillColor(sf::Color::Black);
+	title.setString("Rules of the Game");
+	title.setPosition(window.getSize().x / 2 - 180, window.getSize().y / 2 - 130);
+
+	sf::RectangleShape rulesBox(sf::Vector2f(550, 280));
+	rulesBox.setPosition(window.getSize().x / 2 - 275, window.getSize().y / 2 - 140);
+	rulesBox.setFillColor(sf::Color::White);
+	rulesBox.setOutlineColor(sf::Color::Black);
+	rulesBox.setOutlineThickness(10);
+  
+  
+  
+  ///inside event loop/////
+  
+  
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))//gets rid of rules, starts game
+			{
+				start = start + 1;
+			}
+      
+      ////change all 4 movement if statements, added lives, win, and start integers to prevent movement before game starts and after it ends
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && lives > 0 && win == 0 && start != 0) {
+				frog.setRotation(0);
+				frog.move(0, -37.5);
+
+			}
+      
+      
+      ////in between window.clear and window.display
+      
+      if (start == 0)
+		{
+			window.draw(rulesBox);
+			window.draw(rules);
+			window.draw(title);
+		}
+		else if (start != 0)
+		{
+			rulesBox.setSize(sf::Vector2f(0,0));
+			rules.setCharacterSize(0);
+			title.setCharacterSize(0);
+		}
+
+		for (int x = lives; x > 0; x--)
+		{
+			sf::RectangleShape life(sf::Vector2f(30, 30));
+			life.setPosition(x * 30, window.getSize().y - 40);
+			life.setTexture(&frogtr);
+			window.draw(life);
+		}
+		if (lives <= 0)
+		{
+			text.setString("Game Over");
+			text.setPosition(window.getSize().x / 2 - 155, window.getSize().y / 2 - 30);
+
+			window.draw(result);
+			window.draw(text);
+
+		}
+		else if (frog.getGlobalBounds().intersects(frog_wifey.getGlobalBounds()))
+		{
+			win = 1;
+			text.setString("You Win!");
+			text.setPosition(window.getSize().x / 2 - 120, window.getSize().y / 2 - 30);
+
+			window.draw(result);
+			window.draw(text);
+		}
+    
